@@ -1,23 +1,22 @@
 <li class="list-group-item">
-  <div class="media">
-    <%= image_tag comment.author.avatar_image, class: "rounded-circle mr-2", width: 36 %>
-    <div class="media-body">
-      <div class="d-flex align-items-center justify-content-between">
-        <h5 class="mt-0">
-          <%= link_to comment.author.username, user_path(comment.author.username), class: "text-dark" %>
-        </h5>
-
-        <div>
-          <%= link_to edit_comment_path(comment), class: "btn btn-link btn-sm text-muted" do %>
-            <i class="fas fa-edit fa-fw"></i>
-          <% end %>
-
-          <%= link_to comment, data: { turbo_method: :delete }, class: "btn btn-link btn-sm text-muted" do %>
-            <i class="fas fa-trash fa-fw"></i>
-          <% end %>
-        </div>
-      </div>
+  <div class="d-flex">
+    <div class="flex-shrink-0">
+      <%= image_tag comment.author.avatar_image, class: "rounded-circle mr-2", width: 36 %>
+    </div>
+    <div class="flex-grow-1 ms-3">
+      <h5 class="mt-0">
+        <%= link_to comment.author.username, user_path(comment.author.username), class: "text-dark link-underline-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover" %>
+      </h5>
       <p><%= comment.body %></p>
     </div>
-  </div> 
+    <div>
+      <%= link_to edit_comment_path(comment), class: "btn btn-link btn-sm text-muted" do %>
+        <i class="fas fa-edit fa-fw"></i>
+      <% end %>
+
+      <%= link_to comment, data: { turbo_method: :delete }, class: "btn btn-link btn-sm text-muted" do %>
+        <i class="fas fa-trash fa-fw"></i>
+      <% end %>
+    </div>
+  </div>
 </li>
