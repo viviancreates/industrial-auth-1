@@ -60,7 +60,7 @@ class FollowRequestsController < ApplicationController
 
   private
 
-  def ensure_current_user_can_access
+  def ensure_current_user_is_owner
     unless current_user == @follow_request.sender || current_user == @follow_request.recipient
       redirect_back fallback_location: root_url, alert: "You're not authorized for that."
     end
