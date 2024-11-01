@@ -9,4 +9,16 @@ class FollowRequestPolicy < ApplicationPolicy
   def show?
     user == follow_request.sender || user == follow_request.recipient
   end
+
+  def create?
+    user.present?
+  end
+
+  def update?
+    user == follow_request.sender || user == follow_request.recipient
+  end
+
+  def destroy?
+    user == follow_request.sender || user.admin?
+  end
 end
