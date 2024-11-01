@@ -5,4 +5,20 @@ class CommentPolicy < ApplicationPolicy
     @user = user
     @comment = comment
   end
+
+  def create?
+    user.present?  
+  end
+
+  def update?
+    user == comment.author
+  end
+
+  def destroy?
+    user == comment.author || user.admin?
+  end
+
+  def show?
+    true
+  end
 end
