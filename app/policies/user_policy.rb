@@ -15,4 +15,29 @@ class UserPolicy < ApplicationPolicy
   def feed?
     true
   end
+
+  def discover?
+    user == current_user ||
+      !user.private? ||
+      user.followers.include?(current_user)
+  end
+
+  def liked?
+    user == current_user ||
+      !user.private? ||
+      user.followers.include?(current_user)
+  end
+
+  def followers?
+    user == current_user ||
+      !user.private? ||
+      user.followers.include?(current_user)
+  end
+
+  def following?
+    user == current_user ||
+      !user.private? ||
+      user.followers.include?(current_user)
+  end
+  
 end
