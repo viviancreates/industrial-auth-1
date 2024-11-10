@@ -15,7 +15,7 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user == comment.author || user.admin?
+    user == comment.author
   end
 
   def show?
