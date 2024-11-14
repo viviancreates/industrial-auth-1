@@ -1,6 +1,7 @@
 class FollowRequestsController < ApplicationController
   before_action :set_follow_request, only: %i[ show edit update destroy ]
   before_action :ensure_current_user_is_owner, only: [:index, :show, :new, :edit]
+  before_action :authorize_follow_request, only: %i[show update destroy]
 
   # GET /follow_requests or /follow_requests.json
   def index
@@ -18,12 +19,15 @@ class FollowRequestsController < ApplicationController
 
   # GET /follow_requests/1/edit
   def edit
+    authorize @follow_request
   end
 
   # POST /follow_requests or /follow_requests.json
   def create
     @follow_request = FollowRequest.new(follow_request_params)
     @follow_request.sender = current_user
+
+    authorize @follow_request
 
     respond_to do |format|
       if @follow_request.save
@@ -64,6 +68,10 @@ class FollowRequestsController < ApplicationController
     unless current_user == @follow_request.sender || current_user == @follow_request.recipient
       redirect_back fallback_location: root_url, alert: "You're not authorized for that."
     end
+  end
+
+  def authorize_follow_request
+    authorize @follow_request
   end
 
     # Use callbacks to share common setup or constraints between actions.
